@@ -7,52 +7,60 @@
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 
-static int test_comp()
-{
-	int Error = 0;
+#ifdef IS_MSVC_NATIVE_UNIT_TEST
+namespace core_force_xyzw_only {
+#endif
 
+	static int test_comp()
 	{
-		glm::ivec1 const A(1);
-		Error += A.x == 1 ? 0 : 1;
+		int Error = 0;
+
+		{
+			glm::ivec1 const A(1);
+			Error += A.x == 1 ? 0 : 1;
+		}
+
+		{
+			glm::ivec2 const A(1, 2);
+			Error += A.x == 1 ? 0 : 1;
+			Error += A.y == 2 ? 0 : 1;
+		}
+
+		{
+			glm::ivec3 const A(1, 2, 3);
+			Error += A.x == 1 ? 0 : 1;
+			Error += A.y == 2 ? 0 : 1;
+			Error += A.z == 3 ? 0 : 1;
+		}
+
+		{
+			glm::ivec4 const A(1, 2, 3, 4);
+			Error += A.x == 1 ? 0 : 1;
+			Error += A.y == 2 ? 0 : 1;
+			Error += A.z == 3 ? 0 : 1;
+			Error += A.w == 4 ? 0 : 1;
+		}
+
+		return Error;
 	}
 
+	static int test_constexpr()
 	{
-		glm::ivec2 const A(1, 2);
-		Error += A.x == 1 ? 0 : 1;
-		Error += A.y == 2 ? 0 : 1;
+		int Error = 0;
+
+		return Error;
 	}
 
+	int main()
 	{
-		glm::ivec3 const A(1, 2, 3);
-		Error += A.x == 1 ? 0 : 1;
-		Error += A.y == 2 ? 0 : 1;
-		Error += A.z == 3 ? 0 : 1;
+		int Error = 0;
+
+		Error += test_comp();
+		Error += test_constexpr();
+
+		return Error;
 	}
 
-	{
-		glm::ivec4 const A(1, 2, 3, 4);
-		Error += A.x == 1 ? 0 : 1;
-		Error += A.y == 2 ? 0 : 1;
-		Error += A.z == 3 ? 0 : 1;
-		Error += A.w == 4 ? 0 : 1;
-	}
-
-	return Error;
+#ifdef IS_MSVC_NATIVE_UNIT_TEST
 }
-
-static int test_constexpr()
-{
-	int Error = 0;
-
-	return Error;
-}
-
-int main()
-{
-	int Error = 0;
-
-	Error += test_comp();
-	Error += test_constexpr();
-
-	return Error;
-}
+#endif

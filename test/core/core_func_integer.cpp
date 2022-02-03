@@ -14,6 +14,10 @@
 #include <ctime>
 #include <cstdio>
 
+#ifdef IS_MSVC_NATIVE_UNIT_TEST
+namespace core_func_integer {
+#endif
+
 enum result
 {
 	SUCCESS,
@@ -1530,16 +1534,16 @@ int main()
 {
 	int Error = 0;
 
-	Error += ::bitCount::test();
-	Error += ::bitfieldReverse::test();
-	Error += ::findMSB::test();
-	Error += ::findLSB::test();
-	Error += ::umulExtended::test();
-	Error += ::imulExtended::test();
-	Error += ::uaddCarry::test();
-	Error += ::usubBorrow::test();
-	Error += ::bitfieldInsert::test();
-	Error += ::bitfieldExtract::test();
+	Error += bitCount::test();
+	Error += bitfieldReverse::test();
+	Error += findMSB::test();
+	Error += findLSB::test();
+	Error += umulExtended::test();
+	Error += imulExtended::test();
+	Error += uaddCarry::test();
+	Error += usubBorrow::test();
+	Error += bitfieldInsert::test();
+	Error += bitfieldExtract::test();
 
 #	ifdef NDEBUG
 		std::size_t const Samples = 1000;
@@ -1547,10 +1551,14 @@ int main()
 		std::size_t const Samples = 1;
 #	endif
 
-	::bitCount::perf(Samples);
-	::bitfieldReverse::perf(Samples);
-	::findMSB::perf(Samples);
-	::findLSB::perf(Samples);
+	bitCount::perf(Samples);
+	bitfieldReverse::perf(Samples);
+	findMSB::perf(Samples);
+	findLSB::perf(Samples);
 
 	return Error;
 }
+
+#ifdef IS_MSVC_NATIVE_UNIT_TEST
+}
+#endif

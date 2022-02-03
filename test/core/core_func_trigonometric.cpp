@@ -1,10 +1,17 @@
 #include <glm/trigonometric.hpp>
 
-int main()
-{
-	int Error = 0;
+#ifdef IS_MSVC_NATIVE_UNIT_TEST
+namespace core_func_trigonometric {
+#endif
+
+	int main()
+	{
+		int Error = 0;
 
 
-	return Error;
+		return Error;
+	}
+
+#ifdef IS_MSVC_NATIVE_UNIT_TEST
 }
-
+#endif

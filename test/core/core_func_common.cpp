@@ -19,6 +19,10 @@
 #	pragma warning(disable : 4723)
 #endif
 
+#ifdef IS_MSVC_NATIVE_UNIT_TEST
+namespace core_func_common {
+#endif
+
 namespace floor_
 {
 	static int test()
@@ -1347,3 +1351,6 @@ int main()
 	return Error;
 }
 
+#ifdef IS_MSVC_NATIVE_UNIT_TEST
+}
+#endif
